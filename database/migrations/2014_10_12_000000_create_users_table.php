@@ -9,13 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('nick_game')->unique();
+            $table->string('phone')->unique();
+            $table->string('cpf')->unique();
+            $table->smallInteger('role')->default(2);
+            $table->enum('ativo', ['s', 'n'])->default('s');
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
@@ -27,7 +32,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('users');
     }

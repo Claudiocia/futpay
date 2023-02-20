@@ -20,6 +20,21 @@
             </div>
 
             <div class="mt-4">
+                <x-label for="cpf" value="{{ __('CPF') }}" />
+                <x-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')" required autocomplete="cpf" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="phone" value="{{ __('Phone') }}" />
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autocomplete="phone" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="nick_game" value="{{ __('NickGame') }}" />
+                <x-input id="nick_game" class="block mt-1 w-full" type="text" name="nick_game" :value="old('nick_game')" required autocomplete="nick_game" />
+            </div>
+
+            <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
