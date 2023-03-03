@@ -13,7 +13,7 @@
         "laravel/jetstream": "^3.0",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "livewire/livewire": "^2.11",
+        "livewire/livewire": "^2.12",
         "okipa/laravel-table": "^5.3",
         "prettus/l5-repository": "^2.8"
     },

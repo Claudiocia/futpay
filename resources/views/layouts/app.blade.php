@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Futpay') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,10 +31,25 @@
                     </div>
                 </header>
             @endif
+            <div class="col-6">
+                @if (Session::has('msg'))
+                    <div class="my-alert">
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            {!! Session::get('msg') !!}
+                        </div>
+                    </div>
+                @elseif(Session::has('error'))
+                    <div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {!! Session::get('error') !!}
+                        </div>
+                    </div>
+                @endif
+            </div>
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                    {{ $slot }}
             </main>
         </div>
 

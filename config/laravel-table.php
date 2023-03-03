@@ -9,7 +9,7 @@ return [
      * - bootstrap-4
      * - tailwind-3 (upcoming feature)
      */
-    'ui' => 'bootstrap-5',
+    'ui' => 'bootstrap-4',
 
     /** Set all the displayed action icons. */
     'icon' => [

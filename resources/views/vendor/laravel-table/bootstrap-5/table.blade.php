@@ -6,7 +6,7 @@
             </div>
         @endif
         <div class="table-responsive">
-            <table class="table table-borderless">
+            <table class="table table-borderless table-striped">
                 {{-- Table header--}}
                 <thead>
                     {{-- Filters --}}

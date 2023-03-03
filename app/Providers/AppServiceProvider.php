@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Validator::extend('cpf', '\App\Utils\CpfValidation@validate');
+        \Validator::extend('idade', '\App\Utils\IdadeValidation');
     }
 }

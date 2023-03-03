@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\FutpayController;
+use App\Http\Controllers\LogadoController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Rotas abertas ao público
+Route::get('/', [FutpayController::class, 'index'])->name('/');
+
+//Rotas dos usuarios logados
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->get('/dashboard', [LogadoController::class, 'index'])->name('dashboard');
+
+Route::group(['prefix' => 'logado', 'as' => 'logado.', 'middleware' => 'autorizador:logado'
+], function (){
+
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::group([
+    'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'can:admin'
+], function (){
+
+    Route::name('dashboard-admin')->get('dashboard-admin', [UserController::class, 'admin']);
+    Route::resource('users', UserController::class);
 });

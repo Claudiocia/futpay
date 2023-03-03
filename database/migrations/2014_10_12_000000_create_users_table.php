@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('nick_game')->unique();
             $table->string('phone')->unique();
+            $table->date('dt_nasc');
             $table->string('cpf')->unique();
             $table->smallInteger('role')->default(2);
             $table->enum('ativo', ['s', 'n'])->default('s');
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
