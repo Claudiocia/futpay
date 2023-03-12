@@ -16,12 +16,14 @@
             <div class="my-alert">
                 <div class="alert alert-primary alert-dismissible fade show" role="alert">
                     {!! Session::get('msg') !!}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
         @elseif(Session::has('error'))
             <div>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {!! Session::get('error') !!}
+                    <button type="button" class="btn-close btn-assinar" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
         @endif

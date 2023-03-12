@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 Route::group(['prefix' => 'logado', 'as' => 'logado.', 'middleware' => 'autorizador:logado'
 ], function (){
-
+    \Route::put('users.update/{user}', [LogadoController::class, 'update'])->name('users.update');
 });
 
 Route::group([

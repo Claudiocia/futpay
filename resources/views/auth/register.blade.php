@@ -20,6 +20,11 @@
             </div>
 
             <div class="mt-4">
+                <x-label for="dt_nasc" value="{{ __('Data Nascimento') }}" />
+                <x-input id="dt_nasc" class="block mt-1 w-full" type="date" name="dt_nasc" :value="old('dt_nasc')" required autocomplete="dt_nasc" />
+            </div>
+
+            <div class="mt-4">
                 <x-label for="cpf" value="{{ __('CPF') }}" />
                 <x-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')" required autocomplete="cpf" />
             </div>
@@ -32,6 +37,21 @@
             <div class="mt-4">
                 <x-label for="nick_game" value="{{ __('NickGame') }}" />
                 <x-input id="nick_game" class="block mt-1 w-full" type="text" name="nick_game" :value="old('nick_game')" required autocomplete="nick_game" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="plataforma">
+                    <x-label for="plataforma" value="{{ __('Plataforma de Jogo') }}" />
+                    <div class="flex items-center">
+                         <?php $plataformas = \App\Models\Plataforma::all(); ?>
+                        @foreach($plataformas as $plata)
+                            <x-checkbox name="plataforma[]" id="plataforma" value="{{$plata->id}}" class="ml-3"/>
+                            <div class="ml-2">
+                                {!!   $plata->sigla !!}
+                            </div>
+                        @endforeach
+                    </div>
+                </x-label>
             </div>
 
             <div class="mt-4">
