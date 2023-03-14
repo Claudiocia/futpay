@@ -5,7 +5,7 @@ namespace App\Forms;
 use App\Models\Plataforma;
 use Kris\LaravelFormBuilder\Form;
 
-class PlataformaForms extends Form
+class PlataformaFormEdit extends Form
 {
     public function buildForm()
     {

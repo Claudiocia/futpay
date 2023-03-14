@@ -14,9 +14,10 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Logado') }}
+                    <x-nav-link href="{{route('logado.users.edit', ['user' => Auth::user()->id])}}" :active="request()->routeIs('#')">
+                        {{ __('User Menu') }}
                     </x-nav-link>
+
                     @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)
                         <x-nav-link href="{{ route('admin.dashboard-admin') }}" :active="request()->routeIs('admin.dashboard-admin')">
                             {{ __('Admin') }}

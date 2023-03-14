@@ -148,7 +148,7 @@ class UserController extends Controller
             'cpf.digits' => 'O CPF é composto por 11 digitos incluindo o verificador',
             'cpf.unique' => 'Este CPF já está cadastrado em nosso sistema',
             'dt_nasc.idade' => 'Para se registrar você precisa ter acima de 18 anos completo',
-            'plataforma.required' => 'Você precisa esclher pelo menos 1 plataforma de jogo',
+            'plataforma.required' => 'Você precisa escolher pelo menos 1 plataforma de jogo',
             'nick_game.unique' => 'Esse nickname já está em uso por outro jogador',
         ])->validate();
 

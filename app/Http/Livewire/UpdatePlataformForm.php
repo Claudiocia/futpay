@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Profile;
 
-use App\Forms\PlataformaForms;
+use App\Forms\PlataformaFormEdit;
 use App\Forms\UserForm;
 use Livewire\Component;
 

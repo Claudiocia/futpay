@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\PlataformaFormEdit;
+use App\Forms\UserForm;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class LogadoController extends Controller
@@ -52,12 +57,19 @@ class LogadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User $user
+     * @return View
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $form = \FormBuilder::create(PlataformaFormEdit::class, [
+            'url' => route('logado.users.update', ['user' => $user->id]),
+            'method' => 'PUT',
+            'model' => $user,
+            'key' => 'model'
+        ]);
+        $slot = null;
+        return \view('logado.users.edit', compact('form', 'user', 'slot'));
     }
 
     /**
@@ -65,12 +77,27 @@ class LogadoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  User $user
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function update(Request $request, User $user)
     {
         $data = $request->all();
-        dd($data);
+        \Validator::make($data, [
+            'plataforma' => ['required'],
+        ], [
+            'plataforma.required' => 'Você precisa escolher pelo menos 1 plataforma de jogo',
+        ])->validate();
+
+        if (key_exists('plataforma', $data)){
+            $user->plataformas()->sync($data['plataforma']);
+        }else{
+            $user->plataformas()->detach();
+        }
+        $user->fill($data);
+        $user->save();
+
+        $request->session()->flash('msg', 'Registro atualizado');
+        return redirect()->route('dashboard');
     }
 
     /**

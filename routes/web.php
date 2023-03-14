@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FutpayController;
 use App\Http\Controllers\LogadoController;
+use App\Http\Controllers\PlataformaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +23,10 @@ Route::get('/', [FutpayController::class, 'index'])->name('/');
 //Rotas dos usuarios logados
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->get('/dashboard', [LogadoController::class, 'index'])->name('dashboard');
 
-Route::group(['prefix' => 'logado', 'as' => 'logado.', 'middleware' => 'autorizador:logado'
+Route::group(['prefix' => 'logado', 'as' => 'logado.', 'middleware' => 'can:logado'
 ], function (){
     \Route::put('users.update/{user}', [LogadoController::class, 'update'])->name('users.update');
+    Route::get('users.edit/{user}', [LogadoController::class, 'edit'])->name('users.edit');
 });
 
 Route::group([
@@ -33,4 +35,5 @@ Route::group([
 
     Route::name('dashboard-admin')->get('dashboard-admin', [UserController::class, 'admin']);
     Route::resource('users', UserController::class);
+    Route::resource('plataformas', PlataformaController::class);
 });
