@@ -17,6 +17,8 @@ use App\Repositories\PlataformaRepository;
 use App\Repositories\PlataformaRepositoryEloquent;
 use App\Repositories\RachaoRepository;
 use App\Repositories\RachaoRepositoryEloquent;
+use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -35,6 +37,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(JogoRepository::class, JogoRepositoryEloquent::class);
         $this->app->bind(MovimentoRepository::class, MovimentoRepositoryEloquent::class);
         $this->app->bind(RachaoRepository::class, RachaoRepositoryEloquent::class);
+        $this->app->bind(UserRepository::class, UserRepositoryEloquent::class);
         //:end-bindings:
     }
 

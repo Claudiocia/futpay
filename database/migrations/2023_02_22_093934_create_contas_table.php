@@ -19,8 +19,10 @@ class CreateContasTable extends Migration
             $table->id();
 			$table->integer('numero')->unique();
             $table->decimal('saldo', 9, 2)->default(0.00);
+            $table->enum('active', ['s', 'n'])->default('s');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
+            $table->softDeletes();
 		});
 	}
 

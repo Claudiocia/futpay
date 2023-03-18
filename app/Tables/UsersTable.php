@@ -36,6 +36,7 @@ class UsersTable extends AbstractTableConfiguration
             Column::make('name')->title('Nome')->searchable()->sortable()->sortByDefault('asc'),
             Column::make('email')->title('E-mail')->searchable(),
             Column::make('nick_game')->title('Nick')->searchable(),
+            Column::make('plataforma')->title('Plataformas')->format(fn(User $user)=> '<b>'.$user->plataformas->implode('sigla', ', ').'</b>')
         ];
     }
 

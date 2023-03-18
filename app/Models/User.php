@@ -18,24 +18,20 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * App\Models\User
+ * Class User.
  *
- * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read Collection<int, PersonalAccessToken> $tokens
- * @property-read int|null $tokens_count
- * @method static UserFactory factory($count = null, $state = [])
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static Builder|User query()
+ * @package namespace App\Models;
  * @property int $id
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $nick_game
  * @property string $phone
+ * @property string $dt_nasc
  * @property string $cpf
  * @property int $role
  * @property string $ativo
@@ -48,10 +44,33 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string|null $profile_photo_path
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Collection<int, \App\Models\Campeonato> $campeonatos
+ * @property-read int|null $campeonatos_count
+ * @property-read \App\Models\Conta|null $conta
+ * @property-read Collection<int, \App\Models\Disputacamp> $disputacamps
+ * @property-read int|null $disputacamps_count
+ * @property-read Collection<int, \App\Models\Jogo> $jogos
+ * @property-read int|null $jogos_count
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read Collection<int, \App\Models\Plataforma> $plataformas
+ * @property-read int|null $plataformas_count
+ * @property-read Collection<int, \App\Models\Rachao> $rachaos
+ * @property-read int|null $rachaos_count
+ * @property-read Collection<int, PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User onlyTrashed()
+ * @method static Builder|User query()
  * @method static Builder|User whereAtivo($value)
  * @method static Builder|User whereCpf($value)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereCurrentTeamId($value)
+ * @method static Builder|User whereDeletedAt($value)
+ * @method static Builder|User whereDtNasc($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
  * @method static Builder|User whereId($value)
@@ -66,23 +85,13 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereTwoFactorRecoveryCodes($value)
  * @method static Builder|User whereTwoFactorSecret($value)
  * @method static Builder|User whereUpdatedAt($value)
- * @property-read Collection<int, Campeonato> $campeonatos
- * @property-read int|null $campeonatos_count
- * @property-read Conta|null $conta
- * @property-read Collection<int, Disputacamp> $disputacamps
- * @property-read int|null $disputacamps_count
- * @property-read Collection<int, Jogo> $jogos
- * @property-read int|null $jogos_count
- * @property-read Collection<int, Plataforma> $plataformas
- * @property-read int|null $plataformas_count
- * @property-read Collection<int, Rachao> $rachaos
- * @property-read int|null $rachaos_count
- * @property string $dt_nasc
- * @method static Builder|User whereDtNasc($value)
+ * @method static Builder|User withTrashed()
+ * @method static Builder|User withoutTrashed()
  * @mixin Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements Transformable
 {
+    use TransformableTrait;
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;

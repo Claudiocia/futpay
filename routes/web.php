@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContaController;
 use App\Http\Controllers\FutpayController;
 use App\Http\Controllers\LogadoController;
 use App\Http\Controllers\PlataformaController;
@@ -36,4 +37,5 @@ Route::group([
     Route::name('dashboard-admin')->get('dashboard-admin', [UserController::class, 'admin']);
     Route::resource('users', UserController::class);
     Route::resource('plataformas', PlataformaController::class);
+    Route::resource('contas', ContaController::class);
 });

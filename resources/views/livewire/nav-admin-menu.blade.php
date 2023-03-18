@@ -24,6 +24,9 @@
                         <x-nav-link href="{{ route('admin.plataformas.index') }}" :active="request()->routeIs('admin.plataformas.index')">
                             {{ __('Plataformas') }}
                         </x-nav-link>
+                        <x-nav-link href="{{ route('admin.contas.index') }}" :active="request()->routeIs('admin.contas.index')">
+                            {{ __('Contas') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>

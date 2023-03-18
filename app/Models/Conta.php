@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -28,11 +29,19 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Conta whereSaldo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Conta whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Conta whereUserId($value)
+ * @property string $active
+ * @method static \Illuminate\Database\Eloquent\Builder|Conta whereActive($value)
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Conta onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Conta whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Conta withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Conta withoutTrashed()
  * @mixin \Eloquent
  */
 class Conta extends Model implements Transformable
 {
     use TransformableTrait;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -40,7 +49,7 @@ class Conta extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-		'numero', 'saldo', 'user_id'
+		'numero', 'saldo', 'active', 'user_id',
 	];
 
     public function user()
