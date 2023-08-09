@@ -45,22 +45,22 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Collection<int, \App\Models\Campeonato> $campeonatos
+ * @property-read Collection<int, Campeonato> $campeonatos
  * @property-read int|null $campeonatos_count
- * @property-read \App\Models\Conta|null $conta
- * @property-read Collection<int, \App\Models\Disputacamp> $disputacamps
+ * @property-read Conta|null $conta
+ * @property-read Collection<int, Disputacamp> $disputacamps
  * @property-read int|null $disputacamps_count
- * @property-read Collection<int, \App\Models\Jogo> $jogos
+ * @property-read Collection<int, Jogo> $jogos
  * @property-read int|null $jogos_count
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read Collection<int, \App\Models\Plataforma> $plataformas
+ * @property-read Collection<int, Plataforma> $plataformas
  * @property-read int|null $plataformas_count
- * @property-read Collection<int, \App\Models\Rachao> $rachaos
+ * @property-read Collection<int, Rachao> $rachaos
  * @property-read int|null $rachaos_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static UserFactory factory($count = null, $state = [])
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User onlyTrashed()
@@ -87,6 +87,8 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User withTrashed()
  * @method static Builder|User withoutTrashed()
+ * @property-read Collection<int, Game> $games
+ * @property-read int|null $games_count
  * @mixin Eloquent
  */
 class User extends Authenticatable implements Transformable
@@ -158,6 +160,11 @@ class User extends Authenticatable implements Transformable
     public function plataformas()
     {
         return $this->belongsToMany(Plataforma::class);
+    }
+
+    public function games()
+    {
+        return $this->belongsToMany(Game::class);
     }
 
     public function rachaos()

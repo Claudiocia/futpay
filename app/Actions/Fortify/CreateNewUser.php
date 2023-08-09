@@ -27,6 +27,7 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => ['required', 'numeric', 'digits:11', 'unique:users'],
             'nick_game' => ['required', 'string', 'max:255', 'unique:users'],
             'plataforma' => ['required'],
+            'game' => ['required'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ], [
@@ -37,8 +38,9 @@ class CreateNewUser implements CreatesNewUsers
             'cpf.digits' => 'O CPF é composto por 11 digitos incluindo o verificador',
             'cpf.unique' => 'Este CPF já está cadastrado em nosso sistema',
             'dt_nasc.idade' => 'Para se registrar você precisa ter acima de 18 anos completo',
-            'plataforma.required' => 'Você precisa esclher pelo menos 1 plataforma de jogo',
-            'nick_game.unique' => 'Esse nickname já está em uso por outro jogador',
+            'plataforma.required' => 'Você precisa escolher pelo menos 1 plataforma de jogo',
+            'game.required' => 'Você precisa escolher pelo menos 1 jogo',
+            'nick_game.unique' => 'Esse ID já está em uso por outro jogador',
         ])->validate();
 
         $user = User::create([
@@ -52,6 +54,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
         $user->plataformas()->attach($input['plataforma']);
+        $user->games()->attach($input['game']);
 
         return $user;
     }

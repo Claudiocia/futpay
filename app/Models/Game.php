@@ -11,27 +11,27 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class Plataforma.
+ * Class Game.
  *
  * @package namespace App\Models;
  * @property int $id
  * @property string $name
+ * @property string|null $sigla
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static Builder|Plataforma newModelQuery()
- * @method static Builder|Plataforma newQuery()
- * @method static Builder|Plataforma query()
- * @method static Builder|Plataforma whereCreatedAt($value)
- * @method static Builder|Plataforma whereId($value)
- * @method static Builder|Plataforma whereName($value)
- * @method static Builder|Plataforma whereUpdatedAt($value)
- * @property string $sigla
- * @method static Builder|Plataforma whereSigla($value)
+ * @method static Builder|Game newModelQuery()
+ * @method static Builder|Game newQuery()
+ * @method static Builder|Game query()
+ * @method static Builder|Game whereCreatedAt($value)
+ * @method static Builder|Game whereId($value)
+ * @method static Builder|Game whereName($value)
+ * @method static Builder|Game whereSigla($value)
+ * @method static Builder|Game whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class Plataforma extends Model implements Transformable
+class Game extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -41,7 +41,8 @@ class Plataforma extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-		'name', 'sigla'
+		'name',
+		'sigla',
 	];
 
     public function users()

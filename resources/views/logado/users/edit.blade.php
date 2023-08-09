@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="w-auto p-3">
                         <div class="panel-heading-admin">
-                            <h5>Você precisa escolher pelo menos uma Plataforma de jogo</h5>
+                            <h5>Informe a plataforma e os games que você usa</h5>
                         </div>
                         <div class="panel-body">
                             <div class="form-admin">
@@ -30,8 +30,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 @endsection

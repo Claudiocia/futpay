@@ -125,6 +125,25 @@ class DatabaseSeeder extends Seeder
 
         $plataformas[] = array(
             array(
+                'name' => 'Desktop',
+                'sigla' => 'PC'
+            ),
+            array(
+                'name' => 'Mobile',
+                'sigla' => 'Mbl'
+            ),
+            array(
+                'name' => 'Console',
+                'sigla' => 'Consl'
+            ),
+        );
+
+        foreach ($plataformas as $plataforma){
+            DB::table('plataformas')->insert($plataforma);
+        }
+
+        $games[] = array(
+            array(
                 'name' => 'FIFA Football',
                 'sigla' => 'FIFA'
             ),
@@ -134,8 +153,33 @@ class DatabaseSeeder extends Seeder
             )
         );
 
-        foreach ($plataformas as $plataforma) {
-            DB::table('plataformas')->insert($plataforma);
+        foreach ($games as $game) {
+            DB::table('games')->insert($game);
+        }
+
+        $motivos[] = array(
+            array(
+                'motivo' => 'Aguardando confirmação do banco',
+            ),
+            array(
+                'motivo' => 'Operação concluída',
+            ),
+            array(
+                'motivo' => 'Operação NÃO finalizada',
+            ),
+            array(
+                'motivo' => 'Ultrapassado prazo de confirmação',
+            ),
+            array(
+                'motivo' => 'Cancelada pelo sistema',
+            ),
+            array(
+                'motivo' => 'Cancelada pelo usuário',
+            )
+        );
+
+        foreach ($motivos as $motivo){
+            DB::table('motivo_statuses')->insert($motivo);
         }
     }
 }

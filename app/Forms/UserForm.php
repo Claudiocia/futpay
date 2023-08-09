@@ -9,14 +9,6 @@ class UserForm extends Form
 {
     public function buildForm()
     {
-        if($this->model){
-            $i = count($this->model->plataformas);
-            if ($i == 0){
-                $plat[] = '';
-            }else{
-                $plat[] = $this->model->plataformas->pluck('id')->toArray();
-            }
-        }
         $this
             ->add('name', 'text', [
                 'label' => 'Nome',
@@ -55,7 +47,7 @@ class UserForm extends Form
                     'wrapper' => ['class' => 'choice-wrapper-my'],
                     'label_attr' => ['class' => 'label-class'],
                 ],
-                'selected' => $this->model ? $plat[0] : [],
+                'selected' => $this->model ? $this->model->plataformas->pluck('id')->toArray() : [],
                 'multiple' => true,
                 'expanded' => true,
             ])

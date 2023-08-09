@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -20,27 +24,27 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property string $hora
  * @property int|null $vencedor
  * @property string|null $url_video
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Campeonato $campeonato
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Campeonato $campeonato
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp query()
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereCampeonatoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereData($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereGolplay1($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereGolplay2($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereHora($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp wherePlayer1($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp wherePlayer2($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereUrlVideo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Disputacamp whereVencedor($value)
- * @mixin \Eloquent
+ * @method static Builder|Disputacamp newModelQuery()
+ * @method static Builder|Disputacamp newQuery()
+ * @method static Builder|Disputacamp query()
+ * @method static Builder|Disputacamp whereCampeonatoId($value)
+ * @method static Builder|Disputacamp whereCreatedAt($value)
+ * @method static Builder|Disputacamp whereData($value)
+ * @method static Builder|Disputacamp whereGolplay1($value)
+ * @method static Builder|Disputacamp whereGolplay2($value)
+ * @method static Builder|Disputacamp whereHora($value)
+ * @method static Builder|Disputacamp whereId($value)
+ * @method static Builder|Disputacamp wherePlayer1($value)
+ * @method static Builder|Disputacamp wherePlayer2($value)
+ * @method static Builder|Disputacamp whereUpdatedAt($value)
+ * @method static Builder|Disputacamp whereUrlVideo($value)
+ * @method static Builder|Disputacamp whereVencedor($value)
+ * @mixin Eloquent
  */
 class Disputacamp extends Model implements Transformable
 {

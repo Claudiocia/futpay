@@ -19,7 +19,8 @@ class JetstreamMiddleware
     public function handle(Request $request, Closure $next)
     {
         $int = count(Auth::user()->plataformas);
-        if ($int == 0){
+        $intGames = count(Auth::user()->games);
+        if ($int == 0 || $intGames == 0){
             return redirect()->route('logado.users.edit', ['user' => Auth::user()->id]);
         }
         return $next($request);

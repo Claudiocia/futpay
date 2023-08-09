@@ -88,7 +88,7 @@
         </div>
         <!-- NickGame -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="nick_game" value="{{ __('Nick Game') }}" />
+            <x-label for="nick_game" value="{{ __('ID Game') }}" />
             <x-input id="nick_game" type="text" class="mt-1 block w-full" wire:model.defer="state.nick_game" autocomplete="nickGame" />
         </div>
     </x-slot>

@@ -21,6 +21,11 @@ class CreateMovimentosTable extends Migration
             $table->enum('tipo', ['credito','debito']);
             $table->decimal('valor', 9, 2);
             $table->dateTime('data');
+            $table->string('data_unix');
+            $table->string('meio_pag');
+            $table->string('operation_key')->unique();
+            $table->string('status')->default("Bloqueado");
+            $table->string('motiv_status')->nullable();
             $table->foreignId('conta_id')->references('id')->on('contas');
             $table->timestamps();
 		});

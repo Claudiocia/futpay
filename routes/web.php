@@ -26,8 +26,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 Route::group(['prefix' => 'logado', 'as' => 'logado.', 'middleware' => 'can:logado'
 ], function (){
-    \Route::put('users.update/{user}', [LogadoController::class, 'update'])->name('users.update');
+    Route::put('users.update/{user}', [LogadoController::class, 'update'])->name('users.update');
     Route::get('users.edit/{user}', [LogadoController::class, 'edit'])->name('users.edit');
+    Route::get('users.show/{user}', [LogadoController::class, 'show'])->name('users.show');
+    Route::get('users.gerar-dep/{conta}', [LogadoController::class, 'gerarDeposito'])->name('users.gerar-dep');
+    Route::put('users.depositar/{conta}', [LogadoController::class, 'depositar'])->name('users.depositar');
+    Route::get('users.gerar-saq/{conta}', [LogadoController::class, 'gerarSaque'])->name('users.gerar-saq');
+    Route::put('users.sacar/{conta}', [LogadoController::class, 'sacar'])->name('users.sacar');
+    Route::get('users.extrato/{conta}', [LogadoController::class, 'extrato'])->name('users.extrato');
+    Route::get('users.extrato-detail/{movimento}', [LogadoController::class, 'extratoDetail'])->name('users.extrato-detail');
 });
 
 Route::group([

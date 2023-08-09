@@ -26,12 +26,12 @@
                             <div class="col-sm-3">
                                 <div class="card card-my">
                                     <div class="card-body">
-                                        <h5 class="card-title">Rachão das 14h</h5>
+                                        <h5 class="card-title">Torneio das 14h</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">FIFA Football</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Taxa de inscrição: $5,00</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Inscritos: 03 de 08 Vagas</h6>
-                                        <p class="card-text">Rachão com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
-                                        <a href="#" class="card-link">Entrar no rachão</a>
+                                        <p class="card-text">Torneio com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
+                                        <a href="#" class="card-link">Entrar no torneio</a>
                                     </div>
                                 </div>
                             </div>
@@ -39,12 +39,12 @@
                             <div class="col-sm-3">
                                 <div class="card card-my">
                                     <div class="card-body">
-                                        <h5 class="card-title">Rachão das 14h</h5>
+                                        <h5 class="card-title">Torneio das 14h</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">Pro Evolution Soccer</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Taxa de inscrição: $15,00</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Inscritos: 05 de 08 Vagas</h6>
-                                        <p class="card-text">Rachão com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
-                                        <a href="#" class="card-link">Entrar no rachão</a>
+                                        <p class="card-text">Torneio com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
+                                        <a href="#" class="card-link">Entrar no torneio</a>
                                     </div>
                                 </div>
                             </div>
@@ -52,12 +52,12 @@
                             <div class="col-sm-3">
                                 <div class="card card-my">
                                     <div class="card-body">
-                                        <h5 class="card-title">Rachão das 15h05</h5>
+                                        <h5 class="card-title">Torneio das 15h05</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">FIFA Football</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Taxa de inscrição: $50,00</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Inscritos: 03 de 08 Vagas</h6>
-                                        <p class="card-text">Rachão com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
-                                        <a href="#" class="card-link">Entrar no rachão</a>
+                                        <p class="card-text">Torneio com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
+                                        <a href="#" class="card-link">Entrar no torneio</a>
                                     </div>
                                 </div>
                             </div>
@@ -65,12 +65,12 @@
                             <div class="col-sm-3">
                                 <div class="card card-my">
                                     <div class="card-body">
-                                        <h5 class="card-title">Rachão das 15h05</h5>
+                                        <h5 class="card-title">Torneio das 15h05</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">Pro Evolution Soccer</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Taxa de inscrição: $5,00</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Inscritos: 03 de 08 Vagas</h6>
-                                        <p class="card-text">Rachão com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
-                                        <a href="#" class="card-link">Entrar no rachão</a>
+                                        <p class="card-text">Torneio com no máximo 08 participantes. Entre e mostre que você é o melhor. O vencedor final leva o prêmio.</p>
+                                        <a href="#" class="card-link">Entrar no torneio</a>
                                     </div>
                                 </div>
                             </div>

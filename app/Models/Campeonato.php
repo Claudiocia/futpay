@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -23,30 +27,30 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property int|null $terceiro
  * @property int|null $quarto
  * @property int $plataforma_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Plataforma $plataforma
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Plataforma $plataforma
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato query()
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereArrecadacaoTotal($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereData($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereHora($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato wherePlataformaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato wherePremio($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereQtdPlayers($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereQuarto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereTerceiro($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereValor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereVencedor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Campeonato whereVice($value)
- * @mixin \Eloquent
+ * @method static Builder|Campeonato newModelQuery()
+ * @method static Builder|Campeonato newQuery()
+ * @method static Builder|Campeonato query()
+ * @method static Builder|Campeonato whereArrecadacaoTotal($value)
+ * @method static Builder|Campeonato whereCreatedAt($value)
+ * @method static Builder|Campeonato whereData($value)
+ * @method static Builder|Campeonato whereHora($value)
+ * @method static Builder|Campeonato whereId($value)
+ * @method static Builder|Campeonato wherePlataformaId($value)
+ * @method static Builder|Campeonato wherePremio($value)
+ * @method static Builder|Campeonato whereQtdPlayers($value)
+ * @method static Builder|Campeonato whereQuarto($value)
+ * @method static Builder|Campeonato whereStatus($value)
+ * @method static Builder|Campeonato whereTerceiro($value)
+ * @method static Builder|Campeonato whereUpdatedAt($value)
+ * @method static Builder|Campeonato whereValor($value)
+ * @method static Builder|Campeonato whereVencedor($value)
+ * @method static Builder|Campeonato whereVice($value)
+ * @mixin Eloquent
  */
 class Campeonato extends Model implements Transformable
 {

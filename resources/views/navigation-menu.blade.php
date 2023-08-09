@@ -14,8 +14,11 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{route('logado.users.edit', ['user' => Auth::user()->id])}}" :active="request()->routeIs('#')">
-                        {{ __('User Menu') }}
+                    <x-nav-link href="{{route('logado.users.show', ['user' => Auth::user()->id])}}" :active="request()->routeIs('logado.users.show')">
+                        {{ __('Minha Carteira') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{route('logado.users.edit', ['user' => Auth::user()->id])}}" :active="request()->routeIs('logado.users.edit')">
+                        {{ __('Editar Plataforma') }}
                     </x-nav-link>
 
                     @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)

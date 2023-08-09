@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Utils\DatasExtratoValidation;
+use App\Utils\ValorValidation;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Validator::extend('cpf', '\App\Utils\CpfValidation@validate');
-        \Validator::extend('idade', '\App\Utils\IdadeValidation');
+        \Validator::extend('idade', '\App\Utils\IdadeValidation@validate');
+        \Validator::extend('valor', '\App\Utils\ValorValidation@validate');
+        \Validator::extend('saldo', '\App\Utils\SaldoValidation@validate');
+        \Validator::extend('ordemData', '\App\Utils\DatasExtratoValidation@ordemData');
+        \Validator::extend('diferencaDias', '\App\Utils\DatasExtratoValidation@diferencaDias');
+        \Validator::extend('dataFinal', '\App\Utils\DatasExtratoValidation@dataFinal');
     }
 }

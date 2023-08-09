@@ -118,5 +118,9 @@
     "Enable": "Habilitar",
     "Regenerate Recovery Codes": "Gerar novamente os códigos de recuperação",
     "Show Recovery Codes": "Mostrar os códigos de recuperação",
-    "Disable": "Desabilitar"
+    "Disable": "Desabilitar",
+    "Search by:": "Buscar por:",
+    "Number of rows per page": "Número de linhas por página",
+    "Actions": "Ações",
+    "Showing results <b>:start</b> to <b>:stop</b> on <b>:total</b>": "Mostrando resultados de <b>:start</b> a <b>:stop</b> em <b>:total</b>"
 }

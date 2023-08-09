@@ -31,7 +31,7 @@
 
             <!-- Page Content -->
             <main>
-                @if($slot)
+                @if(isset($slot))
                     {{$slot}}
                 @else
                     @yield('conteudo')

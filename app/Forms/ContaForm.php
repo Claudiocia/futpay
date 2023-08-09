@@ -43,9 +43,9 @@ class ContaForm extends Form
                 'choice_options' => [
                     'wrapper' => ['class' => 'choice-wrapper-my'],
                     'label_attr' => ['class' => 'label-class'],
-                    'attr' => $this->model ? [''] : ['disabled' => 'disabled'],
+                    'attr' => $this->model ? ['disabled' => 'disabled'] : [''],
                 ],
-                'selected' => $this->model ? $this->model->user->nome : 'Selecione...',
+                'empty_value' => $this->model ? $this->model->user->nome : 'Selecione...',
                 'multiple' => false,
                 'expanded' => false,
             ])

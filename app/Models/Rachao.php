@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -18,25 +22,25 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property int $plataforma_id
  * @property int $qtd_players
  * @property string $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Plataforma $plataforma
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Plataforma $plataforma
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao query()
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereArrecadacaoTotal($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereData($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereHora($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao wherePlataformaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao wherePremio($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereQtdPlayers($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rachao whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static Builder|Rachao newModelQuery()
+ * @method static Builder|Rachao newQuery()
+ * @method static Builder|Rachao query()
+ * @method static Builder|Rachao whereArrecadacaoTotal($value)
+ * @method static Builder|Rachao whereCreatedAt($value)
+ * @method static Builder|Rachao whereData($value)
+ * @method static Builder|Rachao whereHora($value)
+ * @method static Builder|Rachao whereId($value)
+ * @method static Builder|Rachao wherePlataformaId($value)
+ * @method static Builder|Rachao wherePremio($value)
+ * @method static Builder|Rachao whereQtdPlayers($value)
+ * @method static Builder|Rachao whereStatus($value)
+ * @method static Builder|Rachao whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Rachao extends Model implements Transformable
 {

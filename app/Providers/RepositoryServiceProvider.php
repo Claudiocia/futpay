@@ -9,6 +9,8 @@ use App\Repositories\ContaRepository;
 use App\Repositories\ContaRepositoryEloquent;
 use App\Repositories\DisputacampRepository;
 use App\Repositories\DisputacampRepositoryEloquent;
+use App\Repositories\GameRepository;
+use App\Repositories\GameRepositoryEloquent;
 use App\Repositories\JogoRepository;
 use App\Repositories\JogoRepositoryEloquent;
 use App\Repositories\MovimentoRepository;
@@ -38,6 +40,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(MovimentoRepository::class, MovimentoRepositoryEloquent::class);
         $this->app->bind(RachaoRepository::class, RachaoRepositoryEloquent::class);
         $this->app->bind(UserRepository::class, UserRepositoryEloquent::class);
+        $this->app->bind(GameRepository::class, GameRepositoryEloquent::class);
         //:end-bindings:
     }
 
