@@ -26,6 +26,7 @@
 
     <script src="https://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="https://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

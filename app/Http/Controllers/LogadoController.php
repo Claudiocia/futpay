@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Forms\MovimentoForm;
 use App\Forms\PlataformaFormEdit;
+use App\Forms\SaqueForm;
 use App\Forms\UserForm;
 use App\Mail\EmailDep;
 use App\Models\Conta;
 use App\Models\Movimento;
+use App\Models\Taxa;
 use App\Models\User;
 use App\Utils\GerarConta;
 use Carbon\Carbon;
@@ -110,6 +112,7 @@ class LogadoController extends Controller
     public function depositar(Request  $request, Conta $conta)
     {
         $data = $request->all();
+        //dd($data);
         Validator::make($data, [
             'valor' => ['required' , 'valor'],
         ], [
@@ -241,13 +244,13 @@ class LogadoController extends Controller
         if (ResponseAlias::HTTP_OK){
             $msg = 'Depósito realizado com sucesso. Enviamos um E-mail com os dados!';
             $request->session()->flash('msg', $msg);
+            return redirect()->route('logado.users.show', compact('user', 'conta'));
         }else{
             $error = 'Ops! Tivemos problema. Verifique a sua conta, caso o valor tenha sido transferido passe um email pelo formulário de contato.';
             $request->session()->flash('error', $error);
+            return redirect()->route('logado.users.show', compact('user', 'conta'));
         }
 
-        $request->session()->flash('msg', '');
-        return redirect()->route('logado.users.show', compact('user', 'conta'));
     }
 
     /**
@@ -260,13 +263,46 @@ class LogadoController extends Controller
      */
     public function gerarSaque(Conta $conta)
     {
+        $taxa = Taxa::whereOperation('Saque')->first();
         $form = FormBuilder::create(MovimentoForm::class, [
+            'url' => route('logado.users.confirma-saq', ['conta' => $conta->id]),
+            'method' => 'GET',
+            'model' => $conta,
+            'tipo' => 'debito',
+        ]);
+        return \view('logado.users.gerar-saq', compact('conta', 'form', 'taxa'));
+    }
+
+    public function confirmaSaque(Request  $request, Conta $conta)
+    {
+        $data = $request->all();
+        Validator::make($data, [
+            'valor' => ['required' , 'valor', 'saldo:'.$conta->id ],
+        ], [
+            'valor.valor' => 'Valor fora da faixa padrão',
+            'valor.saldo' => 'Saldo disponivel insuficiente na conta',
+        ])->validate();
+        $format = numfmt_create('pt_BR', NumberFormatter::DECIMAL);
+        $vlrTotal = numfmt_parse($format, $data['valor']);
+        $taxa = Taxa::whereOperation('Saque')->first();
+        $taxaOp = $taxa->valor;
+        $valueOp = number_format((float)$taxaOp, 2, '.', '');
+        if ($taxa->tipo == 1){
+            $vlrLiquido = $vlrTotal - $valueOp;
+        }else{
+            $valueOp = ($vlrTotal * $valueOp) / 100;
+            $vlrLiquido = $vlrTotal - $valueOp;
+        }
+        $form = FormBuilder::create(SaqueForm::class, [
             'url' => route('logado.users.sacar', ['conta' => $conta->id]),
             'method' => 'PUT',
             'model' => $conta,
             'tipo' => 'debito',
+            'opera' => $valueOp,
+            'liqui' => $vlrLiquido,
+            'total' => $vlrTotal,
         ]);
-        return \view('logado.users.gerar-saq', compact('conta', 'form'));
+        return \view('logado.users.confirma-saq', compact('conta', 'taxa', 'form'));
     }
 
     /**
@@ -281,12 +317,7 @@ class LogadoController extends Controller
     public function sacar(Request  $request, Conta $conta)
     {
         $data = $request->all();
-        Validator::make($data, [
-            'valor' => ['required' , 'valor', 'saldo:'.$conta->id ],
-        ], [
-            'valor.valor' => 'Valor fora da faixa padrão',
-            'valor.saldo' => 'Saldo disponivel insuficiente na conta',
-        ])->validate();
+        //dd($data);
 
         $dataObj = new \DateTime($data['data']);
         $timestamp = $dataObj->getTimestamp();
@@ -295,7 +326,10 @@ class LogadoController extends Controller
         $format = numfmt_create('pt_BR', NumberFormatter::DECIMAL);
         $int = numfmt_parse($format, $data['valor']);
         $saldo = $conta->saldo - $int;
+        $disponivel = $conta->disponivel - $int;
         $user = User::whereId($conta->user->id)->first();
+
+        $contaAdm = Conta::whereId(1)->first();
 
         Movimento::create([
             'description' => $data['description'],
@@ -312,12 +346,115 @@ class LogadoController extends Controller
 
         $conta->fill([
             'saldo' => $saldo,
-            'active' => 's'
+            'disponivel' => $disponivel,
         ]);
         $conta->save();
 
-        $request->session()->flash('msg', 'Saque iniciado com sucesso');
-        return redirect()->route('logado.users.show', compact('user', 'conta'));
+        $data['operation_key_adm'] = 'h'.$timestamp.'t-'.md5('credito').'c-'.$contaAdm->numero.'-p'.$contaAdm->user->id.'y-'.rand(1001,9999);
+
+        Movimento::create([
+            'description' => 'Crédito ref. saque cliente',
+            'tipo' => 'crédito',
+            'valor' => $data['opera_vlr'],
+            'data' => $data['data'],
+            'data_unix' => $data['data_unix'],
+            'conta_id' => $contaAdm->id,
+            'operation_key' => $data['operation_key_adm'],
+            'status' => "Em operação",
+            'motiv_status' => 'aguardando confirmação',
+            'meio_pag' => 1,
+        ]);
+
+        $contaAdm->fill([
+            'saldo' => $contaAdm->saldo + $data['opera_vlr'],
+            'disponivel' => $contaAdm->disponivel + $data['opera_vlr'],
+        ]);
+        $contaAdm->save();
+
+        //email para o cliente
+        $email = $user->email;
+        $emailAdm = 'admfutpay@futpay.com.br';
+        $subject = 'Saque em conta';
+        $mensagemCli = "<br/>";
+        $mensagemCli .= "Você acabou de realizar um saque em sua conta FutPay. Já iniciamos o processamento.";
+        $mensagemCli .= "<br/><br/>";
+        $mensagemCli .= "O crédito será efetuado em sua conta através de PIX. Acompanhe seu extrato que o crédito será efetivado em até 36 horas.";
+        $mensagemCli .= "<br/>";
+        $mensagemCli .= "Qualquer dúvida pode entrar em contato via formulário que você acessa através do link no botão abaixo.";
+        $mensagemCli .= "<br/>";
+        $mensagemCli .= "Não responda a este e-mail, pois esta é uma mensagem automática.";
+        $mensagemCli .= "<br/><br/>";
+        $mensagemCli .= "<strong>Dados da transação:</strong>";
+        $mensagemCli .= "<br/><br/>";
+        $mensagemCli .= "<strong>Valor Total:</strong> R$ ".number_format((float)$data['valor'], 2, ',', '.');
+        $mensagemCli .= "<br/>";
+        $mensagemCli .= "<strong>Taxa Adm:</strong> R$ ".number_format((float)$data['opera_vlr'], 2, ',', '.');
+        $mensagemCli .= "<br/>";
+        $mensagemCli .= "<strong>Valor Líquido a ser creditado:</strong> R$ ".number_format((float)$data['valor_liq'], 2, ',', '.');
+        $mensagemCli .= "<br/>";
+        $mensagemCli .= "<strong>Data:</strong> ".$data['data'];
+        $mensagemCli .= "<br/>";
+        $mensagemCli .= "<strong>Chave:</strong>";
+        $mensagemCli .= "<br/>";
+        $mensagemCli .= $data['operation_key'];
+        $mensagemCli .= "<br/><br/>";
+        $mensagemCli .= "Obrigado por usar a plataforma FutPay";
+        $mailData = [
+            'mensagem' => $mensagemCli,
+            'url' => '#',
+            'title-button' => 'Falar com a FutPay',
+            'title' => 'Olá '.$user->nick_game,
+            'sub-title' => 'Saque em conta',
+            'date' => now(),
+            'email' => env('MAIL_FROM_ADDRESS'),
+        ];
+
+        $mensagemAdm = "<br/>";
+        $mensagemAdm .= "O usuário ".$user->name." acabou de fazer um saque na conta dele.";
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "CPF do usuário: ".$user->cpf;
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "Agora, você precisa transferir da conta depósito FutPay para a conta do usuário de acordo com os dados abaixo:";
+        $mensagemAdm .= "<br/><br/>";
+        $mensagemAdm .= "<strong>Dados da transação:</strong>";
+        $mensagemAdm .= "<br/><br/>";
+        $mensagemAdm .= "<strong>Valor:</strong> R$ ".number_format((float)$data['valor'], 2, ',', '.');
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "<strong>Taxa Adm:</strong> R$ ".number_format((float)$data['opera_vlr'], 2, ',', '.');
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "<strong>Valor Líquido a ser creditado para o cliente:</strong> R$ ".number_format((float)$data['valor_liq'], 2, ',', '.');
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "<strong>Data:</strong> ".$data['data'];
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "<strong>Chave:</strong>";
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= $data['operation_key'];
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "Após realizar a transferencia favor confirmar a operação no sistema";
+        $mensagemAdm .= "<br/>";
+        $mensagemAdm .= "Para acessar o sistema use o link do botão abaixo";
+        $mensagemAdm .= "<br/><br/>";
+        $mailDataAdm = [
+            'mensagem' => $mensagemAdm,
+            'url' => route('login'),
+            'title-button' => 'Acessar sistema',
+            'title' => 'Olá Administrador',
+            'sub-title' => 'Saque em conta',
+            'date' => now(),
+            'email' => env('MAIL_FROM_ADDRESS'),
+        ];
+
+        Mail::to($email)->send(new EmailDep($mailData, $subject));
+        Mail::to($emailAdm)->send(new EmailDep($mailDataAdm, $subject));
+        if (ResponseAlias::HTTP_OK){
+            $msg = 'Saque realizado com sucesso. Enviamos um E-mail com os dados!';
+            $request->session()->flash('msg', $msg);
+            return redirect()->route('logado.users.show', compact('user', 'conta'));
+        }else{
+            $error = 'Ops! Tivemos problema. Verifique a sua conta, caso o valor tenha sido abatido do seu saldo, passe um email pelo formulário de contato.';
+            $request->session()->flash('error', $error);
+            return redirect()->route('logado.users.show', compact('user', 'conta'));
+        }
     }
 
     /**
@@ -331,14 +468,16 @@ class LogadoController extends Controller
     public function extrato(Conta $conta, Request $request)
     {
         $data = $request->all();
-        //dd($data);
+        //dd($conta->id);
         $today = Carbon::now();
         if ($data == null){
             $startDate = $today->subDays(7);
-            $movimentos = Movimento::whereContaId($conta->id)
-                ->where('data', '>=', $startDate)
+            //dd($startDate);
+            $movimentos = \DB::table('movimentos')
+                ->where('conta_id', $conta->id)
+                ->whereBetween('data', [now()->subDays(7), now()])
                 ->orderBy('data', 'DESC')->get();
-            $periodo = "Extrato dos últimos 7 dias";
+            $periodo = "Extrato dos últimos 7 dias daqui";
             return \view('logado.users.extrato', compact('movimentos', 'conta', 'periodo'));
         }elseif ($data['data_fim'] != null && $data['data_ini'] == null){
             \Validator::make($data, [

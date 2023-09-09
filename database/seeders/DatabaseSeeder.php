@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Utils\GerarConta;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $userAdmin[] = array(
+            array(
+                'name' => 'Futpay Adm',
+                'email' => 'futpay@gmail.com',
+                'email_verified_at' => now(),
+                'nick_game' => 'futpay',
+                'dt_nasc' => '1964-05-07',
+                'phone' => '(71) 99909-4697',
+                'cpf' => '02469619530',
+                'role' => User::ROLE_ADMIN,
+                'password' => Hash::make('91316445'),
+            ),
             array(
                 'name' => 'Claudio Souza',
                 'email' => 'claudiosouza.cia@gmail.com',
@@ -36,7 +48,7 @@ class DatabaseSeeder extends Seeder
                 'nick_game' => 'teste',
                 'dt_nasc' => '1964-05-07',
                 'phone' => '(71) 99909-4647',
-                'cpf' => '02469619530',
+                'cpf' => '35840226572',
                 'role' => User::ROLE_PLAYER,
                 'password' => Hash::make('91316445'),
             ),
@@ -123,6 +135,25 @@ class DatabaseSeeder extends Seeder
             DB::table('users')->insert($user);
         }
 
+        $gerar = new GerarConta();
+        $numero = $gerar->gerarNumeroComVerificador();
+
+        $contas[] = array(
+            array(
+                'id' => 1,
+                'numero' => '634391501',
+                'saldo' => 0.00,
+                'bloqueado' => 0.00,
+                'disponivel' => 0.00,
+                'active' => 's',
+                'user_id' => 1,
+            ),
+        );
+
+        foreach ($contas as $conta){
+            DB::table('contas')->insert($conta);
+        }
+
         $plataformas[] = array(
             array(
                 'name' => 'Desktop',
@@ -180,6 +211,32 @@ class DatabaseSeeder extends Seeder
 
         foreach ($motivos as $motivo){
             DB::table('motivo_statuses')->insert($motivo);
+        }
+
+        $taxas[] = array(
+            array(
+                'operation' => 'Saque',
+                'tipo' => 1, //fixo
+                'valor' => 1.90
+            ),
+            array(
+                'operation' => 'Deposito',
+                'tipo' => 1, //fixo
+                'valor' => 0
+            ),
+            array(
+                'operation' => 'Torneio',
+                'tipo' => 2, //percentual
+                'valor' => 20
+            ),
+            array(
+                'operation' => 'Disputa',
+                'tipo' => 2, //percentual
+                'valor' => 10
+            ),
+        );
+        foreach ($taxas as $taxa){
+            DB::table('taxas')->insert($taxa);
         }
     }
 }

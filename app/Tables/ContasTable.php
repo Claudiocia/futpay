@@ -11,6 +11,7 @@ use Okipa\LaravelTable\Formatters\DateFormatter;
 use Okipa\LaravelTable\Result;
 use Okipa\LaravelTable\RowActions\DestroyRowAction;
 use Okipa\LaravelTable\RowActions\EditRowAction;
+use Okipa\LaravelTable\RowActions\RedirectRowAction;
 use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
@@ -23,9 +24,11 @@ class ContasTable extends AbstractTableConfiguration
             ->rowClass(fn(Conta $conta) => [
                 'table-danger'=> $conta->active == 'n',
             ])
-            ->rowActions(fn(Conta $conta) => [
+            ->rowActions(rowActionsClosure: fn(Conta $conta) => [
                 new ShowRowAction(route('admin.contas.show', $conta)),
                 new EditRowAction(route('admin.contas.edit', $conta)),
+                new RedirectRowAction(route('admin.contas.confirm', $conta),
+                    'confirm', '<i class="fa-solid fa-file"></i>'),
             ]);
     }
 
@@ -36,7 +39,9 @@ class ContasTable extends AbstractTableConfiguration
                 ->format(fn(Conta $conta)=> $conta->user->name)
                 ->searchable()->sortable()->sortByDefault(),
             Column::make('numero')->title('Numero')->searchable(),
-            Column::make('saldo')->title('saldo'),
+            Column::make('disponivel')->title('Disponível'),
+            Column::make('bloqueado')->title('Bloqueado'),
+            Column::make('saldo')->title('Saldo Total'),
         ];
     }
 

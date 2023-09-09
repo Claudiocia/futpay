@@ -8,7 +8,7 @@
                     <div class="col-md-12">
                         <div class="w-auto p-3">
                             <div class="panel-heading-admin">
-                                <h5 class="mb-3">Realizar Saque</h5>
+                                <h5 class="mb-3">Operação Saque</h5>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -58,7 +58,7 @@
                                             </div>
                                             <div class="form-admin">
                                                 <div class="row d-flex text-center">
-                                                    <h3 class="title">Realizar Saque</h3>
+                                                    <h3 class="title">Confirmar Dados do Saque</h3>
                                                 </div>
                                                 <div class="row d-flex text-center">
                                                     <h4 class="required">Regras Para Saque</h4>
@@ -72,7 +72,7 @@
                                                 {!!
                                                     form($form->add('salvar', 'submit', [
                                                         'attr' => ['class' => 'btn btn-salvar', 'style' => 'width:120px'],
-                                                        'label' => $icon.' Sacar'
+                                                        'label' => $icon.' Confirmar'
                                                         ]))
                                                  !!}
 

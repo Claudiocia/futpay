@@ -18,6 +18,9 @@
                         <x-nav-link href="{{ route('admin.dashboard-admin') }}" :active="request()->routeIs('admin.dashboard-admin')">
                             {{ __('Admin') }}
                         </x-nav-link>
+                        <x-nav-link href="{{ route('admin.taxas.index') }}" :active="request()->routeIs('admin.taxas.index')">
+                            {{ __('Taxas') }}
+                        </x-nav-link>
                         <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
                             {{ __('Usuários') }}
                         </x-nav-link>

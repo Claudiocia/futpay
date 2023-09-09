@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Utils\DatasExtratoValidation;
 use App\Utils\ValorValidation;
+use App\Utils\AutorizaAction;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
         \Validator::extend('ordemData', '\App\Utils\DatasExtratoValidation@ordemData');
         \Validator::extend('diferencaDias', '\App\Utils\DatasExtratoValidation@diferencaDias');
         \Validator::extend('dataFinal', '\App\Utils\DatasExtratoValidation@dataFinal');
+        \Validator::extend('autor_action', '\App\Utils\AutorizaAction@autorAction');
     }
 }

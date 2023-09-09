@@ -85,6 +85,11 @@ class ContaController extends Controller
         return \view('admin.contas.edit', compact('form'));
     }
 
+    public function confirm(Conta $conta)
+    {
+        return \view('admin.contas.extrato', compact('conta'));
+    }
+
     /**
      * Update the specified resource in storage.
      *

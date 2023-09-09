@@ -11,7 +11,7 @@ class MovimentoForm extends Form
 
         $this
             ->add('description', 'hidden', [
-                'value' =>  'Depósito em carteira virtual',
+                'value' => $this->formOptions['tipo'] == 'credito' ? 'Depósito em carteira virtual' : 'Saque de carteira virtual',
             ])
             ->add('tipo', 'hidden', [
                 'value' => $this->formOptions['tipo'],

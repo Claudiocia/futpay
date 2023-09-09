@@ -84,8 +84,8 @@
                                     </div>
                                     <div class="extr">
                                         <div class="row">
-                                            <h4>{{$periodo}}</h4>
-                                            <livewire:table :config="App\Tables\ExtratoTable::class" :configParams="['contaId' => $conta->id ]"/>
+                                            <h4>Periodo</h4>
+                                            <livewire:table :config="App\Tables\ExtratoAdmTable::class" :configParams="['contaId' => $conta->id ]"/>
                                         </div>
                                     </div>
                                 </div>
